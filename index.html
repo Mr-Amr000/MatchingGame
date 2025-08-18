@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Business Card Challenge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            /* Ensure all text displays horizontally */
+            writing-mode: horizontal-tb !important;
+            text-orientation: mixed !important;
+            direction: ltr !important;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1f3b4d 0%, #2c5c75 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            color: #f0f8ff;
+            touch-action: manipulation;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: auto;
+            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Welcome Screen */
+        #welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 15px;
+            text-align: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+
+        .logo {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            color: #ffd700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ffd700, #ffb347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            max-width: 600px;
+            line-height: 1.4;
+            color: #e0f7ff;
+            padding: 0 10px;
+        }
+
+        .input-group {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 15px;
+            position: relative;
+            padding: 0 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            color: #1f3b4d;
+            font-weight: 500;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #1a936f, #88d498);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(26, 147, 111, 0.4);
+            margin: 6px;
+            width: 90%;
+            max-width: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(26, 147, 111, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #2c5c75, #5ca0d3);
+            box-shadow: 0 5px 15px rgba(44, 92, 117, 0.4);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 20px rgba(44, 92, 117, 0.6);
+        }
+
+        .btn-disabled {
+            background: linear-gradient(45deg, #6c757d, #adb5bd);
+            cursor: not-allowed;
+        }
+
+        .btn-disabled:hover {
+            transform: none;
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+
+        /* Game Screen */
+        #game-screen {
+            padding: 15px;
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+            max-height: 100vh;
+        }
+
+        .game-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .cards-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .cards-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        .cards-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 215, 0, 0.5);
+            border-radius: 2px;
+        }
+
+        .cards-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 215, 0, 0.7);
+        }
+
+        .top-controls {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 0 15px;
+            flex-shrink: 0;
+        }
+
+        .game-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .player-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 0;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .player-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .player-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1f3b4d;
+            flex-shrink: 0;
+        }
+
+        .player-name-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            overflow: hidden;
+        }
+
+        #current-player {
+            font-size: 1.2rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+        }
+
+        .timer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px 18px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: fit-content;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .timer i {
+            color: #ffd700;
+            font-size: 1rem;
+        }
+
+        /* MAIN CHANGE: Columns side-by-side on mobile */
+        .game-board {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .column {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            flex: 1;
+            max-width: 500px;
+            min-width: 300px;
+            height: 100%;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .column-title {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            color: #ffd700;
+            white-space: normal;
+            overflow: visible;
+            font-weight: 600;
+            writing-mode: horizontal-tb;
+            text-orientation: mixed;
+            flex-shrink: 0;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+            min-height: 0;
+        }
+
+        /* UPDATED CARD STYLES */
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            color: #1f3b4d;
+            padding: 15px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: visible;
+            min-height: 140px;
+            height: auto;
+            display: block;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-left: 4px solid #1a936f;
+            /* Fix for text wrapping */
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
+            line-height: 1.5;
+            padding-top: 32px;
+            /* Extra space for Q/A indicator */
+            padding-bottom: 15px;
+            /* Extra space at bottom */
+            /* Ensure horizontal text */
+            writing-mode: horizontal-tb;
+            text-orientation: mixed;
+            white-space: normal;
+            /* Force text to display normally */
+            direction: ltr;
+            unicode-bidi: normal;
+        }
+
+        .card.selected {
+            transform: translateY(-5px);
+            box-shadow: 0 0 0 3px #ffd700;
+        }
+
+        .card.matched {
+            opacity: 0.5;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+
+        .card.question:before {
+            content: "Q";
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-weight: bold;
+            color: #1a936f;
+            font-size: 0.9rem;
+        }
+
+        .card.answer:before {
+            content: "A";
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-weight: bold;
+            color: #2c5c75;
+            font-size: 0.9rem;
+        }
+
+        /* Force text content to display horizontally */
+        .card>* {
+            writing-mode: horizontal-tb !important;
+            text-orientation: mixed !important;
+            direction: ltr !important;
+            display: inline !important;
+        }
+
+        /* Additional fix for text nodes */
+        .card {
+            text-orientation: mixed !important;
+            writing-mode: horizontal-tb !important;
+            direction: ltr !important;
+        }
+
+        /* Ensure span elements display text properly */
+        .card span {
+            display: inline-block !important;
+            writing-mode: horizontal-tb !important;
+            text-orientation: mixed !important;
+            direction: ltr !important;
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+        }
+
+        /* Score Screen */
+        #score-screen {
+            padding: 25px 15px;
+            text-align: center;
+            display: none;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        .score-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+
+        .result-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-value {
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .leaderboard {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 25px;
+            max-width: 700px;
+            margin: 20px auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .leaderboard h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            margin: 8px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            align-items: center;
+        }
+
+        .leaderboard-item.you {
+            background: rgba(255, 215, 0, 0.15);
+            border-left: 3px solid #ffd700;
+        }
+
+        .rank {
+            font-weight: bold;
+            color: #ffd700;
+            min-width: 25px;
+            text-align: center;
+        }
+
+        .player-name {
+            flex-grow: 1;
+            text-align: left;
+            padding: 0 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .player-score {
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .player-time {
+            min-width: 70px;
+            text-align: right;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .message {
+            background: rgba(255, 215, 0, 0.15);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px auto;
+            max-width: 500px;
+            border-left: 3px solid #ffd700;
+            font-size: 0.9rem;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        /* UPDATED RESPONSIVE ADJUSTMENTS */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+                align-items: flex-start;
+                padding-top: 10vh;
+            }
+
+            #welcome-screen {
+                padding: 10px 10px;
+                min-height: auto;
+                justify-content: flex-start;
+            }
+
+            .logo {
+                font-size: 2.2rem;
+                margin-bottom: 10px;
+            }
+
+            h1 {
+                font-size: 1.4rem;
+                margin-bottom: 8px;
+            }
+
+            .subtitle {
+                font-size: 0.85rem;
+                margin-bottom: 15px;
+                line-height: 1.3;
+            }
+
+            .input-group {
+                margin-bottom: 12px;
+                padding: 0 10px;
+            }
+
+            input {
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
+
+            .btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+                margin: 5px;
+            }
+
+            #game-screen {
+                padding: 8px;
+            }
+
+            .top-controls {
+                flex-direction: row;
+                justify-content: space-between;
+                margin-bottom: 15px;
+                max-width: 100%;
+                padding: 0 5px;
+            }
+
+            .game-board {
+                flex-direction: row;
+                gap: 12px;
+                max-width: 100%;
+            }
+
+            .column {
+                padding: 15px 10px;
+                gap: 8px;
+                min-width: 0;
+                max-width: none;
+            }
+
+            .column-title {
+                font-size: 1rem;
+                margin-bottom: 8px;
+                padding-bottom: 6px;
+                white-space: normal;
+                overflow: visible;
+                text-overflow: clip;
+            }
+
+            .card {
+                min-height: 140px;
+                height: auto;
+                font-size: 0.75rem;
+                padding: 8px 6px;
+                padding-top: 22px;
+                padding-bottom: 12px;
+                line-height: 1.4;
+                border-radius: 8px;
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+                overflow: visible;
+                word-break: break-word;
+                /* Ensure horizontal text on mobile */
+                writing-mode: horizontal-tb;
+                text-orientation: mixed;
+                white-space: normal;
+                /* Force text to display normally */
+                direction: ltr;
+                unicode-bidi: normal;
+                display: block;
+            }
+
+            .card:before {
+                top: 4px;
+                left: 4px;
+                font-size: 0.7rem;
+            }
+
+            .cards-container {
+                gap: 4px;
+            }
+
+            .timer {
+                font-size: 0.9rem;
+                padding: 6px 10px;
+                gap: 4px;
+            }
+
+            .timer i {
+                font-size: 0.8rem;
+            }
+
+            .player-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+
+            #current-player {
+                font-size: 1rem;
+                max-width: 100px;
+            }
+
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                margin: 20px;
+            }
+
+            #welcome-screen {
+                padding: 40px 30px;
+            }
+
+            .logo {
+                font-size: 5rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            input {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+
+            .btn {
+                padding: 15px 35px;
+                font-size: 1.1rem;
+                width: auto;
+            }
+
+            #game-screen {
+                padding: 25px;
+            }
+
+            .game-board {
+                gap: 40px;
+                min-height: 500px;
+                max-width: 1400px;
+            }
+
+            .column {
+                max-width: 600px;
+                padding: 25px;
+            }
+
+            .card {
+                min-height: 160px;
+                height: auto;
+                font-size: 1.15rem;
+            }
+
+            .score-title {
+                font-size: 2.5rem;
+            }
+
+            .game-header {
+                flex-direction: row;
+                justify-content: space-between;
+                margin-bottom: 25px;
+            }
+
+            .player-info {
+                justify-content: flex-start;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="container">
+        <div class="logo">
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <h1>Business Economics Challenge</h1>
+        <p class="subtitle">Match business concepts with their definitions. Test your knowledge against the clock!</p>
+
+        <div class="input-group">
+            <input type="text" id="player-name" placeholder="Enter your name" autocomplete="off">
+        </div>
+
+        <button id="start-btn" class="btn">
+            <i class="fas fa-play"></i> Start Challenge
+        </button>
+        <button id="view-leaderboard" class="btn btn-secondary">
+            <i class="fas fa-trophy"></i> View Leaderboard
+        </button>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="container">
+        <div class="top-controls">
+            <div class="timer">
+                <i class="fas fa-clock"></i>
+                <span id="time">05:00</span>
+            </div>
+            <button id="finish-btn" class="btn">
+                <i class="fas fa-flag-checkered"></i> Finish Challenge
+            </button>
+        </div>
+
+        <div class="game-content">
+            <div class="player-header">
+                <div class="player-info">
+                    <div class="player-icon" id="player-initial">?</div>
+                    <div class="player-name-container">
+                        <h2 id="current-player">Player</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-board">
+                <div class="column">
+                    <h3 class="column-title">Questions</h3>
+                    <div class="cards-container" id="questions-container"></div>
+                </div>
+
+                <div class="column">
+                    <h3 class="column-title">Answers</h3>
+                    <div class="cards-container" id="answers-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Score Screen -->
+    <div id="score-screen" class="container">
+        <h2 class="score-title">Challenge Results</h2>
+
+        <div class="result-container">
+            <div class="result-item">
+                <span>Participant:</span>
+                <span class="result-value" id="result-name">Player</span>
+            </div>
+            <div class="result-item">
+                <span>Correct Matches:</span>
+                <span class="result-value" id="result-score">0</span>
+            </div>
+            <div class="result-item">
+                <span>Time Spent:</span>
+                <span class="result-value" id="result-time">00:00</span>
+            </div>
+        </div>
+
+        <div class="message">
+            <i class="fas fa-info-circle"></i> Each device can only play once. Your result has been recorded.
+        </div>
+
+        <div class="leaderboard">
+            <h3><i class="fas fa-trophy"></i> Economics Leaderboard</h3>
+            <div id="leaderboard-container"></div>
+        </div>
+
+        <div class="btn-container">
+            <button id="new-player" class="btn btn-secondary">
+                <i class="fas fa-user"></i> New Participant
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Business and Economics questions and answers
+        const questions = [
+            "Autocratic",
+            "Democratic",
+            "Functions of management",
+            "Intuitive thinking and management ",
+            "Laissez-faire",
+            "Leadership",
+            "Leadership style",
+            "Management",
+            "Paternalistic",
+            "Situational"
+        ];
+
+        const answers = [
+            "refers to the approach that considers there is no single leadership style that suits all situations. The optimal style depends on situational factors",
+            "leaders treat their employees as if they were family members, guiding them through a consultation process and acting in the perceived best interest of their subordinates",
+            "is the practice of achieving an organization’s objectives by using and controlling the available human and non-human resources of the business in an effective way",
+            "refers to the ways in which decision makers behave or reveal their behaviour. These styles or approaches are categorized as autocratic, paternalistic, democratic",
+            "is the skill of getting things done through other people by inspiring, influencing and invigorating them to achieve organizational goals",
+            "is an approach based on having minimal direct input into the work of employees. Instead, laissez-faire leaders allow subordinates to make their own decisions",
+            "are based on personal beliefs, perceptions and instincts or gut feelings. This approach to management and leadership considers issues not necessarily quantifiable",
+            "refers to the roles of managers, namely the planning, organizing, commanding, coordinating and controlling of business operations",
+            "refers to the leadership approach that considers the views of others when making decisions.This participative leadership style means decision-making is decentralized",
+            "refers to leaders who adopt an authoritarian approach by making all the decisions rather than delegating any authority to their subordinates"
+        ];
+
+
+        // Game state
+        let gameState = {
+            playerName: "",
+            score: 0,
+            timeLimit: 300, // 5 minutes in seconds
+            timeSpent: 0,
+            timer: null,
+            selectedQuestion: null,
+            matchedPairs: [],
+            leaderboard: JSON.parse(localStorage.getItem('leaderboard')) || [],
+            startTime: null,
+            hasPlayed3: localStorage.getItem('hasPlayed3') === 'true'
+        };
+
+        // DOM Elements
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const scoreScreen = document.getElementById('score-screen');
+        const playerNameInput = document.getElementById('player-name');
+        const startBtn = document.getElementById('start-btn');
+        const finishBtn = document.getElementById('finish-btn');
+        const newPlayerBtn = document.getElementById('new-player');
+        const viewLeaderboardBtn = document.getElementById('view-leaderboard');
+        const timeDisplay = document.getElementById('time');
+        const playerInitial = document.getElementById('player-initial');
+        const currentPlayer = document.getElementById('current-player');
+        const questionsContainer = document.getElementById('questions-container');
+        const answersContainer = document.getElementById('answers-container');
+        const resultName = document.getElementById('result-name');
+        const resultScore = document.getElementById('result-score');
+        const resultTime = document.getElementById('result-time');
+        const leaderboardContainer = document.getElementById('leaderboard-container');
+
+        // Initialize game
+        function initGame() {
+            if (gameState.hasPlayed3) {
+                alert("Each device can only play once. You've already completed the challenge.");
+                return;
+            }
+
+            // Mark device as played
+            localStorage.setItem('hasPlayed3', 'true');
+            gameState.hasPlayed3 = true;
+
+            // Reset game state
+            gameState.score = 0;
+            gameState.timeSpent = 0;
+            gameState.selectedQuestion = null;
+            gameState.matchedPairs = [];
+
+            // Set player name
+            gameState.playerName = playerNameInput.value.trim() || "Participant";
+            playerInitial.textContent = gameState.playerName.charAt(0).toUpperCase();
+            currentPlayer.textContent = gameState.playerName;
+
+            // Generate cards
+            generateCards();
+
+            // Show game screen
+            welcomeScreen.style.display = 'none';
+            gameScreen.style.display = 'flex';
+            scoreScreen.style.display = 'none';
+
+            // Start timer
+            startTimer();
+        }
+
+        // Generate question and answer cards
+        function generateCards() {
+            questionsContainer.innerHTML = '';
+            answersContainer.innerHTML = '';
+
+            // Create pairs of questions and answers
+            const questionAnswerPairs = questions.map((question, index) => ({
+                question: question,
+                answer: answers[index],
+                questionIndex: index
+            }));
+
+            // Shuffle the pairs
+            const shuffledPairs = questionAnswerPairs.sort(() => Math.random() - 0.5);
+
+            // Create question cards
+            shuffledPairs.forEach((pair, index) => {
+                const card = document.createElement('div');
+                card.className = 'card question';
+                card.innerHTML = '<span>' + pair.question + '</span>';
+                card.dataset.questionIndex = pair.questionIndex;
+                card.dataset.index = index;
+                card.addEventListener('click', () => selectCard(card, 'question'));
+                questionsContainer.appendChild(card);
+            });
+
+            // Create answer cards (shuffled independently)
+            const shuffledAnswers = [...answers].sort(() => Math.random() - 0.5);
+            shuffledAnswers.forEach((answer, index) => {
+                const card = document.createElement('div');
+                card.className = 'card answer';
+                card.innerHTML = '<span>' + answer + '</span>';
+                card.dataset.index = index;
+                card.addEventListener('click', () => selectCard(card, 'answer'));
+                answersContainer.appendChild(card);
+            });
+        }
+
+        // Select a card
+        function selectCard(card, type) {
+            // If card is already matched, do nothing
+            if (card.classList.contains('matched')) return;
+
+            // If we're selecting a question
+            if (type === 'question') {
+                // Deselect previous question
+                if (gameState.selectedQuestion) {
+                    gameState.selectedQuestion.classList.remove('selected');
+                }
+
+                // Select new question
+                card.classList.add('selected');
+                gameState.selectedQuestion = card;
+            }
+            // If we're selecting an answer and a question is already selected
+            else if (type === 'answer' && gameState.selectedQuestion) {
+                // Get question and answer text
+                const questionText = gameState.selectedQuestion.querySelector('span').textContent;
+                const answerText = card.querySelector('span').textContent;
+
+                // Check if it's a match
+                const questionIndex = questions.indexOf(questionText);
+                const isCorrect = answers[questionIndex] === answerText;
+
+                // Mark as matched
+                gameState.selectedQuestion.classList.add('matched');
+                card.classList.add('matched');
+
+                // Update score if correct
+                if (isCorrect) {
+                    gameState.score++;
+                }
+
+                // Add to matched pairs
+                gameState.matchedPairs.push({
+                    question: questionText,
+                    answer: answerText,
+                    correct: isCorrect
+                });
+
+                // Reset selection
+                gameState.selectedQuestion.classList.remove('selected');
+                gameState.selectedQuestion = null;
+
+                // Check if all pairs are matched
+                if (gameState.matchedPairs.length === questions.length) {
+                    endGame();
+                }
+            }
+        }
+
+        // Start the timer
+        function startTimer() {
+            clearInterval(gameState.timer);
+
+            gameState.startTime = Date.now();
+
+            gameState.timer = setInterval(() => {
+                // Calculate time spent in seconds
+                const elapsedSeconds = Math.floor((Date.now() - gameState.startTime) / 1000);
+                gameState.timeSpent = elapsedSeconds;
+
+                // Calculate remaining time for display
+                const remainingTime = gameState.timeLimit - elapsedSeconds;
+
+                // Update timer display
+                const minutes = Math.floor(remainingTime / 60);
+                const seconds = remainingTime % 60;
+                timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                // Flash when time is low
+                if (remainingTime <= 10) {
+                    timeDisplay.parentElement.classList.add('pulse');
+                }
+
+                // End game when time is up
+                if (remainingTime <= 0) {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        // End the game
+        function endGame() {
+            clearInterval(gameState.timer);
+            const timeSpent = Math.min(gameState.timeSpent, gameState.timeLimit);
+
+            // Send data to Google Sheets via proxy
+            fetch('https://kk-xsi8-git-main-nours-projects-98402277.vercel.app/api/send', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: gameState.playerName,
+                    score: gameState.score,
+                    timeSpent: timeSpent
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(res => res.json())
+                .then(data => console.log("Submitted:", data.message))
+                .catch(err => console.error("Error sending to proxy:", err));
+
+            showScoreScreen();
+        }
+
+
+        // Show score screen
+        function showScoreScreen() {
+            gameScreen.style.display = 'none';
+            scoreScreen.style.display = 'flex';
+
+            // Update results
+            resultName.textContent = gameState.playerName;
+            resultScore.textContent = gameState.score;
+
+            // Format time spent
+            const minutes = Math.floor(gameState.timeSpent / 60);
+            const seconds = gameState.timeSpent % 60;
+            resultTime.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+            // Update leaderboard
+            updateLeaderboard();
+        }
+
+        // Update leaderboard display
+        function updateLeaderboard() {
+            leaderboardContainer.innerHTML = '';
+
+            gameState.leaderboard.forEach((player, index) => {
+                const item = document.createElement('div');
+                item.className = 'leaderboard-item';
+                if (player.name === gameState.playerName) {
+                    item.classList.add('you');
+                }
+
+                // Format time spent
+                const minutes = Math.floor(player.timeSpent / 60);
+                const seconds = player.timeSpent % 60;
+                const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                item.innerHTML = `
+                    <div class="rank">${index + 1}</div>
+                    <div class="player-name">${player.name}</div>
+                    <div class="player-score">${player.score}</div>
+                    <div class="player-time">${timeString}</div>
+                `;
+
+                leaderboardContainer.appendChild(item);
+            });
+        }
+
+        // View leaderboard from welcome screen
+        function viewLeaderboard() {
+            // Set dummy player name
+            gameState.playerName = "Leaderboard";
+
+            // Show leaderboard
+            showScoreScreen();
+            welcomeScreen.style.display = 'none';
+            scoreScreen.style.display = 'flex';
+
+            // Update title
+            document.querySelector('.score-title').textContent = "Economics Leaderboard";
+            document.querySelector('.result-container').style.display = 'none';
+            document.querySelector('.message').style.display = 'none';
+        }
+
+        // Event listeners
+        startBtn.addEventListener('click', initGame);
+
+        finishBtn.addEventListener('click', endGame);
+
+        newPlayerBtn.addEventListener('click', () => {
+            scoreScreen.style.display = 'none';
+            welcomeScreen.style.display = 'flex';
+            playerNameInput.value = '';
+            document.querySelector('.result-container').style.display = 'block';
+            document.querySelector('.message').style.display = 'block';
+            document.querySelector('.score-title').textContent = "Challenge Results";
+        });
+
+        viewLeaderboardBtn.addEventListener('click', viewLeaderboard);
+
+        // Enter key to start game
+        playerNameInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                startBtn.click();
+            }
+        });
+
+        // Check if already played on page load
+        window.addEventListener('load', () => {
+            if (gameState.hasPlayed3) {
+                startBtn.classList.add('btn-disabled');
+                startBtn.innerHTML = '<i class="fas fa-lock"></i> Challenge Completed';
+                playerNameInput.placeholder = "You've already completed the challenge";
+                playerNameInput.disabled = true;
+            }
+
+            // Initialize welcome screen
+            welcomeScreen.style.display = 'flex';
+        });
+    </script>
+</body>
+
+</html>

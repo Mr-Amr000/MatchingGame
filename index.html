@@ -867,30 +867,32 @@
     <script>
         // Business and Economics questions and answers
         const questions = [
-            "Autocratic",
-            "Democratic",
-            "Functions of management",
-            "Intuitive thinking and management ",
-            "Laissez-faire",
-            "Leadership",
-            "Leadership style",
-            "Management",
-            "Paternalistic",
-            "Situational leadership"
-        ];
+  "What does CSR stand for and what does it mean?",
+  "What is an ethical code of practice?",
+  "What are ethical objectives?",
+  "What are ethics in business decision-making?",
+  "What is a mission statement?",
+  "What are objectives in business?",
+  "What are strategic objectives?",
+  "What are strategies in business?",
+  "What are tactical objectives?",
+  "What are tactics in business?",
+  "What is a vision statement?"
+];
 
-      const answers = [
-	        "refers to leaders who adopt an authoritarian approach by making all the decisions rather than delegating any authority to their subordinates",
-            "refers to the leadership approach that considers the views of others when making decisions.This participative leadership style means decision-making is decentralized",
-            "refers to the roles of managers, namely the planning, organizing, commanding, coordinating and controlling of business operations",
-            "are based on personal beliefs, perceptions and instincts or gut feelings. This approach to management and leadership considers issues not necessarily quantifiable",
-            "is an approach based on having minimal direct input into the work of employees. Instead, laissez-faire leaders allow subordinates to make their own decisions",
-            "is the skill of getting things done through other people by inspiring, influencing and invigorating them to achieve organizational goals",
-            "refers to the ways in which decision makers behave or reveal their behaviour. These styles or approaches are categorized as autocratic, paternalistic, democratic",
-            "is the practice of achieving an organization’s objectives by using and controlling the available human and non-human resources of the business in an effective way",
-            "leaders treat their employees as if they were family members, guiding them through a consultation process and acting in the perceived best interest of their subordinates",
-            "refers to the approach that considers there is no single leadership style that suits all situations. The optimal style depends on situational factors"
-        ];
+const answers = [
+  "The consideration of ethical and environmental practice in business activity, focusing on stakeholder groups and society's well-being.",
+  "The documented beliefs and philosophies of an organization, guiding what is acceptable or not within the organization.",
+  "Organizational goals based on moral guidelines, determined by the business and/or society, to guide decision-making.",
+  "The moral principles that guide decision-making and business strategy, focusing on what is right or wrong from society’s point of view.",
+  "A declaration of an organization’s overall purpose, forming the foundation for setting objectives.",
+  "What an organization strives to achieve, such as growth, profit, protecting shareholder value, and ethical goals.",
+  "The longer-term goals of a business, such as profit maximization, growth, market standing, and market share.",
+  "The long-term plans of action that businesses use to achieve their targets and objectives.",
+  "Short-term goals that affect a unit of the organization, guiding daily operations or departments.",
+  "Short-term plans of action businesses use to achieve their objectives.",
+  "An organization’s long-term aspirations — where the business ultimately wants to be."
+];
 
 
 
@@ -905,7 +907,7 @@
             matchedPairs: [],
             leaderboard: JSON.parse(localStorage.getItem('leaderboard')) || [],
             startTime: null,
-            hasPlayed4: localStorage.getItem('hasPlayed4') === 'true'
+            hasPlayed5: localStorage.getItem('hasPlayed5') === 'true'
         };
 
         // DOM Elements
@@ -929,14 +931,14 @@
 
         // Initialize game
         function initGame() {
-            if (gameState.hasPlayed4) {
+            if (gameState.hasPlayed5) {
                 alert("Each device can only play once. You've already completed the challenge.");
                 return;
             }
 
             // Mark device as played
-            localStorage.setItem('hasPlayed4', 'true');
-            gameState.hasPlayed4 = true;
+            localStorage.setItem('hasPlayed5', 'true');
+            gameState.hasPlayed5 = true;
 
             // Reset game state
             gameState.score = 0;
@@ -1194,7 +1196,7 @@
 
         // Check if already played on page load
         window.addEventListener('load', () => {
-            if (gameState.hasPlayed4) {
+            if (gameState.hasPlayed5) {
                 startBtn.classList.add('btn-disabled');
                 startBtn.innerHTML = '<i class="fas fa-lock"></i> Challenge Completed';
                 playerNameInput.placeholder = "You've already completed the challenge";

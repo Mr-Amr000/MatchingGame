@@ -867,32 +867,33 @@
     <script>
         // Business and Economics questions and answers
         const questions = [
-  "What does CSR stand for and what does it mean?",
-  "What is an ethical code of practice?",
-  "What are ethical objectives?",
-  "What are ethics in business decision-making?",
-  "What is a mission statement?",
-  "What are objectives in business?",
-  "What are strategic objectives?",
-  "What are strategies in business?",
-  "What are tactical objectives?",
-  "What are tactics in business?",
-  "What is a vision statement?"
+  "Conflict",
+  "Customers",
+  "Directors",
+  "Employees",
+  "External stakeholders",
+  "Financiers",
+  "Government",
+  "Internal stakeholders",
+  "Local community",
+  "Managers",
+  "Pressure groups"
 ];
 
 const answers = [
-  "The consideration of ethical and environmental practice in business activity, focusing on stakeholder groups and society's well-being.",
-  "The documented beliefs and philosophies of an organization, guiding what is acceptable or not within the organization.",
-  "Organizational goals based on moral guidelines, determined by the business and/or society, to guide decision-making.",
-  "The moral principles that guide decision-making and business strategy, focusing on what is right or wrong from society’s point of view.",
-  "A declaration of an organization’s overall purpose, forming the foundation for setting objectives.",
-  "What an organization strives to achieve, such as growth, profit, protecting shareholder value, and ethical goals.",
-  "The longer-term goals of a business, such as profit maximization, growth, market standing, and market share.",
-  "The long-term plans of action that businesses use to achieve their targets and objectives.",
-  "Short-term goals that affect a unit of the organization, guiding daily operations or departments.",
-  "Short-term plans of action businesses use to achieve their objectives.",
-  "An organization’s long-term aspirations — where the business ultimately wants to be."
+  "Situations where stakeholders have disputes or differences over certain issues, often leading to arguments or tension.",
+  "The clients of a business seeking value for money, competitive prices, and good quality products.",
+  "Senior executives elected by shareholders to address business activities on their behalf.",
+  "The staff of an organization who have an interest and involvement in the business they work for.",
+  "Individuals and organizations not part of a business but with a direct interest in its activities and performance.",
+  "Stakeholders who provide sources of finance for an organization and are interested in its ability to generate profits and repay debts.",
+  "The ruling authority within a state or country concerned with legal compliance in business activities.",
+  "Members of the organization such as employees, managers, directors, and shareholders (owners).",
+  "The general public and local businesses that have a direct interest in job creation and socially responsible activities.",
+  "An internal group of stakeholders responsible for overseeing the daily operations of a business.",
+  "Individuals with a common concern who place demands on organizations to act in a particular way or influence their behavior."
 ];
+ 
 
 
 
@@ -907,7 +908,7 @@ const answers = [
             matchedPairs: [],
             leaderboard: JSON.parse(localStorage.getItem('leaderboard')) || [],
             startTime: null,
-            hasPlayed5: localStorage.getItem('hasPlayed5') === 'true'
+            hasPlayed6: localStorage.getItem('hasPlayed6') === 'true'
         };
 
         // DOM Elements
@@ -931,14 +932,14 @@ const answers = [
 
         // Initialize game
         function initGame() {
-            if (gameState.hasPlayed5) {
+            if (gameState.hasPlayed6) {
                 alert("Each device can only play once. You've already completed the challenge.");
                 return;
             }
 
             // Mark device as played
-            localStorage.setItem('hasPlayed5', 'true');
-            gameState.hasPlayed5 = true;
+            localStorage.setItem('hasPlayed6', 'true');
+            gameState.hasPlayed6 = true;
 
             // Reset game state
             gameState.score = 0;
@@ -1196,7 +1197,7 @@ const answers = [
 
         // Check if already played on page load
         window.addEventListener('load', () => {
-            if (gameState.hasPlayed5) {
+            if (gameState.hasPlayed6) {
                 startBtn.classList.add('btn-disabled');
                 startBtn.innerHTML = '<i class="fas fa-lock"></i> Challenge Completed';
                 playerNameInput.placeholder = "You've already completed the challenge";

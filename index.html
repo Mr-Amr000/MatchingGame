@@ -866,33 +866,34 @@
 
     <script>
         // Business and Economics questions and answers
-        const questions = [
-  "Conflict",
-  "Customers",
-  "Directors",
-  "Employees",
-  "External stakeholders",
-  "Financiers",
-  "Government",
-  "Internal stakeholders",
-  "Local community",
-  "Managers",
-  "Pressure groups"
+const questions = [
+  "Acquisition",
+  "Average cost",
+  "Backward vertical integration",
+  "Conglomerates",
+  "Demerger",
+  "Diseconomies of scale",
+  "Economies of scale",
+  "External diseconomies of scale",
+  "External economies of scale",
+  "External growth (or inorganic growth)",
+  "Financial economies of scale"
 ];
 
 const answers = [
-  "Situations where stakeholders have disputes or differences over certain issues, often leading to arguments or tension.",
-  "The clients of a business seeking value for money, competitive prices, and good quality products.",
-  "Senior executives elected by shareholders to address business activities on their behalf.",
-  "The staff of an organization who have an interest and involvement in the business they work for.",
-  "Individuals and organizations not part of a business but with a direct interest in its activities and performance.",
-  "Stakeholders who provide sources of finance for an organization and are interested in its ability to generate profits and repay debts.",
-  "The ruling authority within a state or country concerned with legal compliance in business activities.",
-  "Members of the organization such as employees, managers, directors, and shareholders (owners).",
-  "The general public and local businesses that have a direct interest in job creation and socially responsible activities.",
-  "An internal group of stakeholders responsible for overseeing the daily operations of a business.",
-  "Individuals with a common concern who place demands on organizations to act in a particular way or influence their behavior."
+  "A method of external growth that involves one company buying a controlling interest in another company, with the agreement of the target company’s Board of Directors.",
+  "The cost per unit of output.",
+  "Occurs when a business amalgamates with a firm operating in an earlier stage of production, such as a car manufacturer taking over a supplier of tyres or other components.",
+  "Businesses that provide a diversified range of products and operate in a range of different industries.",
+  "Occurs when a company sells off a part of its business, thereby separating into two or more businesses. It usually happens due to conflicts.",
+  "The cost disadvantages of growth. Average costs are likely to eventually rise as a firm grows due to a lack of control, coordination and communication.",
+  "Lower average costs of production as a firm operates on a larger scale due to gains in productive efficiency.",
+  "Occur due to factors beyond its control which cause average costs of production to increase as an industry grows.",
+  "Occur when an organization’s average cost falls as the industry grows. Hence, all firms in the industry benefit.",
+  "Occurs when a business grows and evolves by collaborating with, buying up or merging with other organizations.",
+  "Cost savings made by large firms as banks and other lenders charge lower interest (for overdrafts, loans and mortgages) because larger businesses represent lower risk."
 ];
+
  
 
 
@@ -908,7 +909,7 @@ const answers = [
             matchedPairs: [],
             leaderboard: JSON.parse(localStorage.getItem('leaderboard')) || [],
             startTime: null,
-            hasPlayed6: localStorage.getItem('hasPlayed6') === 'true'
+            hasPlayed7: localStorage.getItem('hasPlayed7') === 'true'
         };
 
         // DOM Elements
@@ -932,14 +933,14 @@ const answers = [
 
         // Initialize game
         function initGame() {
-            if (gameState.hasPlayed6) {
+            if (gameState.hasPlayed7) {
                 alert("Each device can only play once. You've already completed the challenge.");
                 return;
             }
 
             // Mark device as played
-            localStorage.setItem('hasPlayed6', 'true');
-            gameState.hasPlayed6 = true;
+            localStorage.setItem('hasPlayed7', 'true');
+            gameState.hasPlayed7 = true;
 
             // Reset game state
             gameState.score = 0;
@@ -1197,7 +1198,7 @@ const answers = [
 
         // Check if already played on page load
         window.addEventListener('load', () => {
-            if (gameState.hasPlayed6) {
+            if (gameState.hasPlayed7) {
                 startBtn.classList.add('btn-disabled');
                 startBtn.innerHTML = '<i class="fas fa-lock"></i> Challenge Completed';
                 playerNameInput.placeholder = "You've already completed the challenge";

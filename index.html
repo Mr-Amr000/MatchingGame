@@ -867,32 +867,32 @@
     <script>
         // Business and Economics questions and answers
 const questions = [
-  "Acquisition",
-  "Average cost",
-  "Backward vertical integration",
-  "Conglomerates",
-  "Demerger",
-  "Diseconomies of scale",
-  "Economies of scale",
-  "External diseconomies of scale",
-  "External economies of scale",
-  "External growth (or inorganic growth)",
-  "Financial economies of scale"
-];
+            "Define Goods",
+            "Define Needs",
+            "What is the Primary Sector?",
+            "Define Production",
+            "What is the Quaternary Sector?",
+            "What is the Secondary Sector?",
+            "Define Services",
+            "What is the Tertiary Sector?",
+            "What does Adding Value mean?",
+            "Define Wants",
+            "What are Businesses?"
+        ];
 
-const answers = [
-  "A method of external growth that involves a company buying a controlling interest in another company, with the agreement of the Board of Directors.",
-  "The cost per unit of output.",
-  "Occurs when a business amalgamates with a firm operating in an earlier stage of production, such as a car manufacturer taking over a supplier of tyres.",
-  "Businesses that provide a diversified range of products and operate in a range of different industries.",
-  "Occurs when a company sells off a part of its business, thereby separating into two or more businesses. It usually happens due to conflicts.",
-  "The cost disadvantages of growth. Average costs are likely to eventually rise as a firm grows due to a lack of control, coordination and communication.",
-  "Lower average costs of production as a firm operates on a larger scale due to gains in productive efficiency.",
-  "Occur due to factors beyond its control which cause average costs of production to increase as an industry grows.",
-  "Occur when an organization’s average cost falls as the industry grows. Hence, all firms in the industry benefit.",
-  "Occurs when a business grows and evolves by collaborating with, buying up or merging with other organizations.",
-  "Cost savings made by large firms as banks and other lenders charge lower interest (for overdrafts, loans and mortgages)."
-];
+        const answers = [
+            "Physical products sold to customers, e.g., laptops, books, perfumes, etc.",
+            "Basic necessities like food, water, warmth, shelter, and clothing.",
+            "Businesses involved in extraction of natural resources like farming, fishing, etc.",
+            "The process of creating goods/services, adding value.",
+            "Tertiary sub-sector focused on knowledge-based activities like research.",
+            "Businesses involved in construction and manufacturing.",
+            "Intangible products sold to customers, e.g., airlines, restaurants, etc.",
+            "Businesses providing services to customers.",
+            "Producing something worth more than the cost of resources used.",
+            "Desires like new clothes, holidays, and jewelry.",
+            "Organizations that produce goods or provide services."
+        ];
 
  
 
@@ -909,7 +909,7 @@ const answers = [
             matchedPairs: [],
             leaderboard: JSON.parse(localStorage.getItem('leaderboard')) || [],
             startTime: null,
-            hasPlayed7: localStorage.getItem('hasPlayed7') === 'true'
+            hasPlayed8: localStorage.getItem('hasPlayed8') === 'true'
         };
 
         // DOM Elements
@@ -933,14 +933,14 @@ const answers = [
 
         // Initialize game
         function initGame() {
-            if (gameState.hasPlayed7) {
+            if (gameState.hasPlayed8) {
                 alert("Each device can only play once. You've already completed the challenge.");
                 return;
             }
 
             // Mark device as played
-            localStorage.setItem('hasPlayed7', 'true');
-            gameState.hasPlayed7 = true;
+            localStorage.setItem('hasPlayed8', 'true');
+            gameState.hasPlayed8 = true;
 
             // Reset game state
             gameState.score = 0;
@@ -1198,7 +1198,7 @@ const answers = [
 
         // Check if already played on page load
         window.addEventListener('load', () => {
-            if (gameState.hasPlayed7) {
+            if (gameState.hasPlayed8) {
                 startBtn.classList.add('btn-disabled');
                 startBtn.innerHTML = '<i class="fas fa-lock"></i> Challenge Completed';
                 playerNameInput.placeholder = "You've already completed the challenge";

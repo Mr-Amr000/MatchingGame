@@ -867,30 +867,33 @@
     <script>
         // Business and Economics questions and answers
 const questions = [
-            "Cooperatives",
-            "Company (or corporation)",
-            "Deed of partnership",
-            "Incorporation",
-            "Initial public offering (IPO)",
-            "Limited liability",
-            "Non-governmental organizations (NGOs)",
-            "Partnerships",
-            "Private sector",
-            "Privately held company"
-        ];
+  "Conflict",
+  "Customers",
+  "Directors",
+  "Employees",
+  "External stakeholders",
+  "Financiers",
+  "Government",
+  "Internal stakeholders",
+  "Local community",
+  "Managers",
+  "Pressure groups"
+];
 
-        const answers = [
-            "A for-profit social enterprise set up, owned, and run by its members, who might be employees and/or customers.",
-            "A limited liability business owned by shareholders that has a separate legal identity from its owners.",
-            "A legal contract signed by the owners of a partnership,specifying each partner's responsibilities and share of profits or losses.",
-            "The legal difference between the owners of a company and the business itself, protecting owners from unlimited liability.",
-            "When a business sells all or part of itself to shareholders on a public stock exchange for the first time.",
-            "A restriction on how much money company owners can lose if the business fails, limiting losses to the amount invested.",
-            "Private sector, not-for-profit organizations that operate for the benefit of others rather than to earn a profit.",
-            "A private sector business owned by between 2 and 20 people who share the responsibilities of running it.",
-            "The part of the economy run by private individuals and businesses rather than the government.",
-            "A business owned by shareholders with limited liability whose shares cannot be sold to the general public."
-        ];
+const answers = [
+  "Situations where stakeholders have disputes or differences regarding certain issues or matters, leading to arguments between stakeholders.",
+  "The clients of a business who seek value for money, competitive prices, and good quality products as a key external stakeholder group.",
+  "Senior executives elected by shareholders to address business activities on behalf of the owners.",
+  "The staff of an organization who have a stake (interest and involvement) in the organization they work for.",
+  "Individuals and organizations not part of the business but with a direct interest in its activities and performance.",
+  "Investors who provide sources of finance for an organization and are interested in its ability to generate profits and repay debts.",
+  "The ruling authority within a state or country, interested in ensuring businesses comply with laws regarding their operations.",
+  "Members of the organization such as employees, managers, directors, and shareholders (owners).",
+  "The general public and local businesses that have a direct interest in job creation and conducting business activities.",
+  "An internal group of stakeholders responsible for overseeing the daily operations of the business.",
+  "Individuals with a common concern who place demands on organizations to act or change their behavior in a particular way."
+];
+
  
 
 
@@ -906,7 +909,7 @@ const questions = [
             matchedPairs: [],
             leaderboard: JSON.parse(localStorage.getItem('leaderboard')) || [],
             startTime: null,
-            hasPlayed9: localStorage.getItem('hasPlayed9') === 'true'
+            hasPlayed10: localStorage.getItem('hasPlayed10') === 'true'
         };
 
         // DOM Elements
@@ -930,14 +933,14 @@ const questions = [
 
         // Initialize game
         function initGame() {
-            if (gameState.hasPlayed9) {
+            if (gameState.hasPlayed10) {
                 alert("Each device can only play once. You've already completed the challenge.");
                 return;
             }
 
             // Mark device as played
-            localStorage.setItem('hasPlayed9', 'true');
-            gameState.hasPlayed9 = true;
+            localStorage.setItem('hasPlayed10', 'true');
+            gameState.hasPlayed10 = true;
 
             // Reset game state
             gameState.score = 0;
@@ -1195,7 +1198,7 @@ const questions = [
 
         // Check if already played on page load
         window.addEventListener('load', () => {
-            if (gameState.hasPlayed9) {
+            if (gameState.hasPlayed10) {
                 startBtn.classList.add('btn-disabled');
                 startBtn.innerHTML = '<i class="fas fa-lock"></i> Challenge Completed';
                 playerNameInput.placeholder = "You've already completed the challenge";

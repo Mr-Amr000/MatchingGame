@@ -866,33 +866,31 @@
 
     <script>
         // Business and Economics questions and answers
-const questions = [
-  "Conflict",
-  "Customers",
-  "Directors",
-  "Employees",
-  "External stakeholders",
-  "Financiers",
-  "Government",
-  "Internal stakeholders",
-  "Local community",
-  "Managers",
-  "Pressure groups"
-];
+        const questions = [
+            "Autocratic",
+            "Democratic",
+            "Functions of management",
+            "Intuitive thinking and management ",
+            "Laissez-faire",
+            "Leadership",
+            "Leadership style",
+            "Management",
+            "Paternalistic",
+            "Situational leadership"
+        ];
 
-const answers = [
-  "Situations where stakeholders have disputes or differences regarding certain issues or matters, leading to arguments between stakeholders.",
-  "The clients of a business who seek value for money, competitive prices, and good quality products as a key external stakeholder group.",
-  "Senior executives elected by shareholders to address business activities on behalf of the owners.",
-  "The staff of an organization who have a stake (interest and involvement) in the organization they work for.",
-  "Individuals and organizations not part of the business but with a direct interest in its activities and performance.",
-  "Investors who provide sources of finance for an organization and are interested in its ability to generate profits and repay debts.",
-  "The ruling authority within a state or country, interested in ensuring businesses comply with laws regarding their operations.",
-  "Members of the organization such as employees, managers, directors, and shareholders (owners).",
-  "The general public and local businesses that have a direct interest in job creation and conducting business activities.",
-  "An internal group of stakeholders responsible for overseeing the daily operations of the business.",
-  "Individuals with a common concern who place demands on organizations to act or change their behavior in a particular way."
-];
+      const answers = [
+	        "refers to leaders who adopt an authoritarian approach by making all the decisions rather than delegating any authority to their subordinates",
+            "refers to the leadership approach that considers the views of others when making decisions.This participative leadership style means decision-making is decentralized",
+            "refers to the roles of managers, namely the planning, organizing, commanding, coordinating and controlling of business operations",
+            "are based on personal beliefs, perceptions and instincts or gut feelings. This approach to management and leadership considers issues not necessarily quantifiable",
+            "is an approach based on having minimal direct input into the work of employees. Instead, laissez-faire leaders allow subordinates to make their own decisions",
+            "is the skill of getting things done through other people by inspiring, influencing and invigorating them to achieve organizational goals",
+            "refers to the ways in which decision makers behave or reveal their behaviour. These styles or approaches are categorized as autocratic, paternalistic, democratic",
+            "is the practice of achieving an organization’s objectives by using and controlling the available human and non-human resources of the business in an effective way",
+            "leaders treat their employees as if they were family members, guiding them through a consultation process and acting in the perceived best interest of their subordinates",
+            "refers to the approach that considers there is no single leadership style that suits all situations. The optimal style depends on situational factors"
+        ];
 
  
 
@@ -909,7 +907,7 @@ const answers = [
             matchedPairs: [],
             leaderboard: JSON.parse(localStorage.getItem('leaderboard')) || [],
             startTime: null,
-            hasPlayed10: localStorage.getItem('hasPlayed10') === 'true'
+            hasPlayed11: localStorage.getItem('hasPlayed11') === 'true'
         };
 
         // DOM Elements
@@ -933,14 +931,14 @@ const answers = [
 
         // Initialize game
         function initGame() {
-            if (gameState.hasPlayed10) {
+            if (gameState.hasPlayed11) {
                 alert("Each device can only play once. You've already completed the challenge.");
                 return;
             }
 
             // Mark device as played
-            localStorage.setItem('hasPlayed10', 'true');
-            gameState.hasPlayed10 = true;
+            localStorage.setItem('hasPlayed11', 'true');
+            gameState.hasPlayed11 = true;
 
             // Reset game state
             gameState.score = 0;
@@ -1198,7 +1196,7 @@ const answers = [
 
         // Check if already played on page load
         window.addEventListener('load', () => {
-            if (gameState.hasPlayed10) {
+            if (gameState.hasPlayed11) {
                 startBtn.classList.add('btn-disabled');
                 startBtn.innerHTML = '<i class="fas fa-lock"></i> Challenge Completed';
                 playerNameInput.placeholder = "You've already completed the challenge";

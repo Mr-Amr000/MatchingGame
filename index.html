@@ -867,30 +867,31 @@
     <script>
         // Business and Economics questions and answers
         const questions = [
-            "Autocratic",
-            "Democratic",
-            "Functions of management",
-            "Intuitive thinking and management ",
-            "Laissez-faire",
-            "Leadership",
-            "Leadership style",
-            "Management",
-            "Paternalistic",
-            "Situational leadership"
-        ];
+  "Forward vertical integration",
+  "Horizontal integration",
+  "Internal diseconomies of scale",
+  "Internal economies of scale",
+  "Internal growth (organic growth)",
+  "Lateral integration",
+  "Marketing economies of scale",
+  "Merger",
+  "Optimal level of output",
+  "Purchaser"
+];
 
-      const answers = [
-	        "refers to leaders who adopt an authoritarian approach by making all the decisions .",
-            "refers to the leadership approach that considers the views of others when making decisions.",
-            "refers to the roles of managers, namely the planning, organizing, commanding, coordinating and controlling of business operations.",
-            "are based on personal beliefs, perceptions and instincts or gut feelings.",
-            "is an approach based on having minimal direct input into the work of employees.",
-            "is the skill of getting things done through other people by inspiring, influencing and invigorating them to achieve organizational goals.",
-            "refers to the ways in which decision makers behave or reveal their behaviour.",
-            "is the practice of achieving an organization’s objectives by using and controlling the available resources in an effective way.",
-            "leaders treat their employees as if they were family members, guiding them through a consultation process and acting in the perceived best interest.",
-            "refers to the approach that considers there is no single leadership style that suits all situations. The optimal style depends on situational factors."
-        ];
+const answers = [
+  "A growth strategy that occurs with the amalgamation of a firm operating at a later stage in the production process.",
+  "An external growth strategy that occurs when a business amalgamates with a firm operating in the same stage of production.",
+  "Occur due to internal problems of mismanagement, causing average costs of production to increase as a firm grows.",
+  "Cost savings that occur within a particular organization (rather than the whole industry) as it grows in size.",
+  "Occurs when a business grows using its own capabilities and resources to increase the scale of its operations and sales revenue.",
+  "Refers to external growth of firms that have similar operations but do not directly compete with each other.",
+  "Occur when larger businesses can afford to hire specialist managers, improving efficiency and productivity.",
+  "A form of external growth whereby two (or more) firms agree to form a new organization, losing their original identities.",
+  "The most efficient scale of operation for a business, where average costs of production are minimized.",
+  "The acquiring company in an acquisition or the buyer of another company in a takeover."
+];
+
 
  
 
@@ -907,7 +908,7 @@
             matchedPairs: [],
             leaderboard: JSON.parse(localStorage.getItem('leaderboard')) || [],
             startTime: null,
-            hasPlayed11: localStorage.getItem('hasPlayed11') === 'true'
+            hasPlayed12: localStorage.getItem('hasPlayed12') === 'true'
         };
 
         // DOM Elements
@@ -931,14 +932,14 @@
 
         // Initialize game
         function initGame() {
-            if (gameState.hasPlayed11) {
+            if (gameState.hasPlayed12) {
                 alert("Each device can only play once. You've already completed the challenge.");
                 return;
             }
 
             // Mark device as played
-            localStorage.setItem('hasPlayed11', 'true');
-            gameState.hasPlayed11 = true;
+            localStorage.setItem('hasPlayed12', 'true');
+            gameState.hasPlayed12 = true;
 
             // Reset game state
             gameState.score = 0;
@@ -1196,7 +1197,7 @@
 
         // Check if already played on page load
         window.addEventListener('load', () => {
-            if (gameState.hasPlayed11) {
+            if (gameState.hasPlayed12) {
                 startBtn.classList.add('btn-disabled');
                 startBtn.innerHTML = '<i class="fas fa-lock"></i> Challenge Completed';
                 playerNameInput.placeholder = "You've already completed the challenge";

@@ -867,28 +867,31 @@
     <script>
         // Business and Economics questions and answers
 const questions = [
-  "Purchasing economies of scale",
-  "Risk-bearing economies of scale",
-  "Specialization economies of scale",
-  "Strategic alliances",
-  "Synergy",
-  "Takeover (hostile takeover)",
-  "Target company",
-  "Technical economies of scale",
-  "Vertical integration"
+  "Business angels",
+  "Crowdfunding",
+  "External sources of finance",
+  "Initial public offering (IPO)",
+  "Internal sources of finance",
+  "Leasing",
+  "Loan capital (or debt capital)",
+  "Long-term sources of finance",
+  "Microfinance",
+  "Overdrafts"
 ];
 
 const answers = [
-  "Occur when larger organizations gain huge cost savings per unit by purchasing vast quantities of inputs.",
-  "Occur when large firms can bear greater risks than smaller ones due to having a greater product portfolio.",
-  "Occur when larger firms can afford to hire and train specialist workers, improving output and efficiency.",
-  "Formed when two or more organizations join together to benefit from external growth without forming a new legal entity.",
-  "A benefit of growth when the whole is greater than the sum of individual parts after two or more business operations combine.",
-  "Occurs when one company buys a controlling interest in another firm without approval from the target company's Board of Directors.",
-  "The organization that is purchased in an acquisition or takeover deal.",
-  "Cost savings created by greater use of large-scale machinery or mass production methods that reduce average costs.",
-  "Takes place between businesses that are at different stages of production."
+  "Extremely wealthy individuals who risk their own money by investing in small to medium sized businesses that have high growth potential.",
+  "The practice of raising finance for a business venture or project by getting small amounts of money from a large number of people.",
+  "The funds from outside of the organization, such as through debt, share capital and business angels.",
+  "Refers to a business converting its legal status to a publicly traded company by floating its shares on a stock exchange for the first time.",
+  "Funds generated from within the organization, namely through personal funds, retained profits and the sale of assets.",
+  "A form of hiring whereby a lessee pays rental income to hire assets from the lessor, the legal owner of the assets.",
+  "Medium- to long-term sources of interest-bearing finance obtained from commercial sources such as mortgages, business development loans.",
+  "Those available for any period of more than 12 months from the accounting period.",
+  "A type of financial service aimed at entrepreneurs of small businesses, especially females and those on low incomes.",
+  "Allow a business to spend in excess of the amount in its bank account, up to a pre-determined limit."
 ];
+
 
 
  
@@ -906,7 +909,7 @@ const answers = [
             matchedPairs: [],
             leaderboard: JSON.parse(localStorage.getItem('leaderboard')) || [],
             startTime: null,
-            hasPlayed12: localStorage.getItem('hasPlayed12') === 'true'
+            hasPlayed13: localStorage.getItem('hasPlayed13') === 'true'
         };
 
         // DOM Elements
@@ -930,14 +933,14 @@ const answers = [
 
         // Initialize game
         function initGame() {
-            if (gameState.hasPlayed12) {
+            if (gameState.hasPlayed13) {
                 alert("Each device can only play once. You've already completed the challenge.");
                 return;
             }
 
             // Mark device as played
-            localStorage.setItem('hasPlayed12', 'true');
-            gameState.hasPlayed12 = true;
+            localStorage.setItem('hasPlayed13', 'true');
+            gameState.hasPlayed13 = true;
 
             // Reset game state
             gameState.score = 0;
@@ -1195,7 +1198,7 @@ const answers = [
 
         // Check if already played on page load
         window.addEventListener('load', () => {
-            if (gameState.hasPlayed12) {
+            if (gameState.hasPlayed13) {
                 startBtn.classList.add('btn-disabled');
                 startBtn.innerHTML = '<i class="fas fa-lock"></i> Challenge Completed';
                 playerNameInput.placeholder = "You've already completed the challenge";

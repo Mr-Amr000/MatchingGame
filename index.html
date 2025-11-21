@@ -909,7 +909,7 @@ const answers = [
             matchedPairs: [],
             leaderboard: JSON.parse(localStorage.getItem('leaderboard')) || [],
             startTime: null,
-            hasPlayed13: localStorage.getItem('hasPlayed13') === 'true'
+            hasPlayed14: localStorage.getItem('hasPlayed14') === 'true'
         };
 
         // DOM Elements
@@ -933,14 +933,14 @@ const answers = [
 
         // Initialize game
         function initGame() {
-            if (gameState.hasPlayed13) {
+            if (gameState.hasPlayed14) {
                 alert("Each device can only play once. You've already completed the challenge.");
                 return;
             }
 
             // Mark device as played
-            localStorage.setItem('hasPlayed13', 'true');
-            gameState.hasPlayed13 = true;
+            localStorage.setItem('hasPlayed14', 'true');
+            gameState.hasPlayed14 = true;
 
             // Reset game state
             gameState.score = 0;
@@ -1198,7 +1198,7 @@ const answers = [
 
         // Check if already played on page load
         window.addEventListener('load', () => {
-            if (gameState.hasPlayed13) {
+            if (gameState.hasPlayed14) {
                 startBtn.classList.add('btn-disabled');
                 startBtn.innerHTML = '<i class="fas fa-lock"></i> Challenge Completed';
                 playerNameInput.placeholder = "You've already completed the challenge";
